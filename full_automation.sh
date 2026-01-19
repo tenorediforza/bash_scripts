@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#Make sure $(source .bash_aliases) work
+
+shopt -s expand_aliases
+
 #This script creates configuration files for tmux, Vim, and aliases for DEBIAN based systems
 		
 	#Make sure you are on home directory
