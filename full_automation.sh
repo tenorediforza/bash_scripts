@@ -23,11 +23,6 @@ wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/mai
 #NOTE:Copy and paste from clipboard feature in VIM. Make sure you have these packages installed:
 #	| wl-clipboard |	| xsel |	| xclip |
 
-
-#Move the two configuration files to home folder
-
-	mv .bash_aliases .tmux.conf .vimrc $HOME/
-
 	mv create_new_bash_script.sh $HOME/Documents/scripts
 
 	chmod +x $HOME/Documents/scripts/create_new_bash_script.sh
