@@ -2,6 +2,10 @@
 
 #This script creates configuration files for tmux, Vim, and aliases for DEBIAN based systems
 		
+	#Make sure you are on home directory
+
+	cd $HOME
+
 	#Create TWO new directories (in case they don't exist)
 
 	mkdir -p $HOME/Documents/scripts $HOME/Documents/logs
