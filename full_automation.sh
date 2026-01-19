@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#Make sure $(source .bash_aliases) work
-
-shopt -s expand_aliases
-
 #This script creates configuration files for tmux, Vim, and aliases for DEBIAN based systems
 		
 	#Make sure you are on home directory
@@ -35,6 +31,6 @@ wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/mai
 
 	chmod +x $HOME/Documents/scripts/create_new_bash_script.sh
 
-	source $HOME/.bash_aliases
+	echo "source $HOME/.bash_aliases"
 
 	echo "La comedia è finita"
