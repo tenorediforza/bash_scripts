@@ -27,7 +27,7 @@ wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/mai
 #NOTE:Copy and paste from clipboard feature in VIM. Make sure you have these packages installed:
 #	| wl-clipboard |	| xsel |	| xclip |
 
-	mv create_new_bash_script.sh $HOME/Documents/scripts
+	mv create_new_bash_script.sh full_automation.sh $HOME/Documents/scripts
 
 	chmod +x $HOME/Documents/scripts/create_new_bash_script.sh
 
