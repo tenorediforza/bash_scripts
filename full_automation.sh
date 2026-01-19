@@ -10,14 +10,14 @@
 	mkdir -p $HOME/Documents/scripts $HOME/Documents/logs
 
 #Add respective lines to .bash_aliases
-	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/.bash_aliases >> .bash_aliases
+	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/bash_aliases -O ->> .bash_aliases
 
 #Add respective lines to .tmux.conf file
-	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/.tmux.conf >> .tmux.conf
+	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/tmux.conf -O ->> .tmux.conf
 
 #Add respective lines to .vimrc file
 
-	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/.vimrc >> .vimrc
+	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/vimrc -O ->> .vimrc
 
 #Download bash_script_creator
 
