@@ -1,10 +1,7 @@
 #!/bin/bash
 
 #This script creates configuration files for tmux, Vim, and aliases for DEBIAN based systems
-	#These series of commands creates three new files
-	
-	touch .bash_aliases .tmux.conf .vimrc 
-	
+		
 	#Create TWO new directories (in case they don't exist)
 
 	mkdir -p $HOME/Documents/scripts $HOME/Documents/logs
@@ -29,7 +26,7 @@ wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/mai
 
 #Move the two configuration files to home folder
 
-	mv .* $HOME/
+	mv .bash_aliases .tmux.conf .vimrc $HOME/
 
 	mv create_new_bash_script.sh $HOME/Documents/scripts
 
