@@ -10,6 +10,14 @@
 
 	mkdir -p $HOME/Documents/scripts $HOME/Documents/logs
 
+	#Download the configuration file for keyboard shortcuts with gnome in Ubunutu
+
+	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/custom.txt -O ->> custom.txt
+
+	#Load keyboad binding file configuration
+
+	cat custom.txt | dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/
+
 #Add respective lines to .bash_aliases
 	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/bash_aliases -O ->> .bash_aliases
 
