@@ -43,6 +43,10 @@ wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/mai
 #NOTE:Copy and paste from clipboard feature in VIM. Make sure you have these packages installed:
 #	| wl-clipboard |	| xsel |	| xclip |
 
+#Install basic progrmas
+
+	sudo apt install tmux vim curl
+
 	mv create_new_bash_script.sh full_automation.sh updates $HOME/Documents/scripts
 
 	rm ~/custom.txt 2>/dev/null
