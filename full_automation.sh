@@ -10,6 +10,12 @@
 
 	mkdir -p $HOME/Documents/scripts $HOME/Documents/logs
 
+
+
+	#Script to update ubuntu and remove old configuration files cleaning
+
+	wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/updates -O ->> updates
+
 	#Download the configuration file for keyboard shortcuts with gnome in Ubunutu
 
 	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/custom.txt -O ->> custom.txt
@@ -28,6 +34,10 @@
 
 	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/vimrc -O ->> .vimrc
 
+#Make update script executable
+
+	chmod +x updates
+
 #Download bash_script_creator
 
 wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/create_new_bash_script.sh > $HOME/Documents/scripts/create_new_bash_script.sh
@@ -35,7 +45,7 @@ wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/mai
 #NOTE:Copy and paste from clipboard feature in VIM. Make sure you have these packages installed:
 #	| wl-clipboard |	| xsel |	| xclip |
 
-	mv create_new_bash_script.sh full_automation.sh $HOME/Documents/scripts
+	mv create_new_bash_script.sh full_automation.sh updates $HOME/Documents/scripts
 
 	rm ~/custom.txt 2>/dev/null
 
