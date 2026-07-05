@@ -10,8 +10,6 @@
 
 	mkdir -p $HOME/Documents/scripts $HOME/Documents/logs
 
-
-
 	#Script to update ubuntu and remove old configuration files cleaning
 
 	wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/updates -O ->> updates
