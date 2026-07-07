@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# Ensure script is run as root
+if [ "$EUID" -ne 0 ]; then
+  echo "[-] Please run as root (sudo)."
+  exit 1
+fi
+
+# Securely prompt for password without echoing characters
+echo -n "[?] Enter the desired RustDesk permanent password: "
+read -s PASSWORD
+echo "" # Move to a new line
+
+# Verify the password is not empty
+if [ -z "$PASSWORD" ]; then
+  echo "[-] Error: Password cannot be empty."
+  exit 1
+fi
+
+echo "[+] Setting RustDesk permanent password..."
+sudo rustdesk --password "$PASSWORD"
+
+# Clear the password variable from memory as early as possible
+unset PASSWORD
+
+echo "[+] Enabling Direct IP Access..."
+CONFIG_FILE="/root/.config/rustdesk/RustDesk.toml"
+mkdir -p "$(dirname "$CONFIG_FILE")"
+
+# Update or add the necessary settings
+if grep -q "direct-access=" "$CONFIG_FILE"; then
+    sed -i 's/direct-access=.*/direct-access=Y/' "$CONFIG_FILE"
+else
+    echo "direct-access=Y" >> "$CONFIG_FILE"
+fi
+
+if grep -q "allow-remote-config=" "$CONFIG_FILE"; then
+    sed -i 's/allow-remote-config=.*/allow-remote-config=Y/' "$CONFIG_FILE"
+else
+    echo "allow-remote-config=Y" >> "$CONFIG_FILE"
+fi
+
+echo "[+] Starting RustDesk service..."
+sudo rustdesk --install-service
+sudo systemctl enable --now rustdesk
+
+# Output the Machine ID
+MACHINE_ID=$(sudo rustdesk --get-id)
+echo "[+] Setup Complete!"
+echo "[+] Your RustDesk ID: $MACHINE_ID"
