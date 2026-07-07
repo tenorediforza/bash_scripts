@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Exit immediately if a command exits with a non-zero status.
+set -e
+
+# Define the GitHub repository details
+REPO_OWNER="rustdesk"
+REPO_NAME="rustdesk"
+
+echo "Fetching the latest RustDesk release information..."
+
+# Fetch the latest release tag
+LATEST_TAG=$(curl -s "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases/latest" | grep "tag_name" | cut -d '"' -f 4)
+
+if [ -z "$LATEST_TAG" ]; then
+    echo "Error: Could not retrieve the latest release tag."
+    exit 1
+fi
+
+echo "Latest RustDesk version found: $LATEST_TAG"
+
+# Extract the version number without the 'v' prefix
+VERSION_NUMBER=$(echo "$LATEST_TAG" | sed 's/^v//')
+
+# Construct the download URL for the .deb package (assuming x86_64 architecture)
+DEB_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${LATEST_TAG}/rustdesk-${VERSION_NUMBER}-x86_64.deb"
+DEB_FILE="rustdesk-${VERSION_NUMBER}-x86_64.deb"
+
+echo "Downloading the latest RustDesk .deb package from: $DEB_URL"
+
+# Download the .deb package
+wget -q --show-progress "$DEB_URL" -O "$DEB_FILE"
+
+if [ ! -f "$DEB_FILE" ]; then
+    echo "Error: Downloaded .deb file not found."
+    exit 1
+fi
+
+echo "Installing/Upgrading RustDesk..."
+
+# Install or upgrade the .deb package using apt
+sudo apt install -y "./$DEB_FILE"
+
+echo "RustDesk update complete."
+
+# Clean up the downloaded .deb file
+rm "$DEB_FILE"
+
+echo "Cleaned up temporary files."
