@@ -22,6 +22,18 @@
 
 	cat custom.txt | dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/
 
+	#Download script to install rustdesk
+
+	wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/install_rustdesk -0 ->> install_rustdesk
+
+	#Download script to configure rustdesk
+
+	wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/config_rustdesk -0 ->> config_rustdesk
+
+	#Download script to update an installed version of Rustdesk
+
+	wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/rustdesk_update_script -0 ->> rustdesk_update_script
+
 #Add respective lines to .bash_aliases
 	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/bash_aliases -O ->> .bash_aliases
 
@@ -34,7 +46,7 @@
 
 #Make update script executable
 
-	chmod +x updates
+	chmod +x updates install_rustdesk config_rustdesk rustdesk_update_script  
 
 #Download bash_script_creator
 
@@ -45,9 +57,9 @@ wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/mai
 
 #Install basic progrmas
 
-	sudo apt install tmux vim curl
+	sudo apt install -y tmux vim curl
 
-	mv create_new_bash_script.sh full_automation.sh updates $HOME/Documents/scripts
+	mv create_new_bash_script.sh full_automation.sh updates install_rustdesk config_rustdesk rustdesk_update_script $HOME/Documents/scripts
 
 	rm ~/custom.txt 2>/dev/null
 
