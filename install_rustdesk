@@ -2,58 +2,42 @@
 
 # Ensure script is run as root
 if [ "$EUID" -ne 0 ]; then
-  echo "[-] Please run as root (sudo)."
+  echo "Please run as root (e.g., using sudo)."
   exit 1
 fi
 
-echo "[+] Updating apt repositories..."
+echo "Fetching the latest RustDesk release tag..."
+# Fetch the latest release tag directly from the RustDesk GitHub API
+RD_VERSION=$(curl -s https://api.github.com/repos/rustdesk/rustdesk/releases/latest | grep tag_name | cut -d '"' -f 4 | sed 's/v//')
+
+if [ -z "$RD_VERSION" ]; then
+  echo "Failed to fetch the latest version tag. Please check your internet connection."
+  exit 1
+fi
+
+echo "Installing RustDesk version: v$RD_VERSION"
+
+# Set architecture variable (only 64-bit is officially supported for modern releases)
+ARCH="x86_64"
+DEB_FILE="rustdesk-${RD_VERSION}-${ARCH}.deb"
+
+# Download the latest .deb package
+echo "Downloading https://github.com/rustdesk/rustdesk/releases/download/${RD_VERSION}/${DEB_FILE}..."
+wget -qO "$DEB_FILE" "https://github.com/rustdesk/rustdesk/releases/download/${RD_VERSION}/${DEB_FILE}"
+
+# Check if the download succeeded
+if [ ! -f "$DEB_FILE" ]; then
+  echo "Download failed. Please manually check the RustDesk GitHub releases page."
+  exit 1
+fi
+
+# Install the downloaded deb package and fix missing dependencies
+echo "Installing package and resolving dependencies..."
 apt-get update -y
+apt-get install -fy "./$DEB_FILE"
 
-echo "[+] Installing required tools (curl, jq, wget)..."
-apt-get install -y curl jq wget
-
-echo "[+] Detecting system architecture..."
-ARCH=$(dpkg --print-architecture)
-
-# Map Debian architecture names to RustDesk asset naming conventions
-if [ "$ARCH" = "amd64" ]; then
-    ARCH_PATTERN="x86_64"
-elif [ "$ARCH" = "arm64" ]; then
-    ARCH_PATTERN="arm64"
-elif [ "$ARCH" = "armhf" ]; then
-    ARCH_PATTERN="armhf"
-else
-    echo "[-] Unsupported architecture: $ARCH"
-    exit 1
-fi
-
-echo "[+] Fetching the latest stable RustDesk download URL..."
-# Queries the GitHub API to find the download URL matching the system's architecture
-DOWNLOAD_URL=$(curl -s https://github.com \
-
-  | jq -r ".assets[] | select(.name | test(\"${ARCH_PATTERN}.*\\\\.deb$\")) | .browser_download_url" | head -n 1)
-
-if [ -z "$DOWNLOAD_URL" ] || [ "$DOWNLOAD_URL" = "null" ]; then
-  echo "[-] Failed to fetch the latest download link for architecture: $ARCH_PATTERN"
-  exit 1
-fi
-
-DEB_FILE="/tmp/rustdesk_latest.deb"
-echo "[+] Downloading RustDesk from: $DOWNLOAD_URL"
-wget -O "$DEB_FILE" "$DOWNLOAD_URL"
-
-echo "[+] Installing RustDesk..."
-# Installs the package and forces apt to resolve any missing dependencies immediately
-apt-get install -fy "$DEB_FILE"
-
-# Clean up the downloaded deb package
+# Clean up the installer file
+echo "Cleaning up..."
 rm -f "$DEB_FILE"
 
-echo "[+] Verifying installation..."
-if command -v rustdesk &> /dev/null; then
-  echo "[+] RustDesk successfully installed!"
-  echo "[+] Version: $(rustdesk --version)"
-else
-  echo "[-] Installation failed. Please check the logs."
-  exit 1
-fi
+echo "Installation complete! You can now launch RustDesk from your applications menu."
