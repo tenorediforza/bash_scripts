@@ -24,15 +24,15 @@
 
 	#Download script to install rustdesk
 
-	wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/install_rustdesk -0 ->> install_rustdesk
+	wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/install_rustdesk -O ->> install_rustdesk
 
 	#Download script to configure rustdesk
 
-	wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/config_rustdesk -0 ->> config_rustdesk
+	wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/config_rustdesk -O ->> config_rustdesk
 
 	#Download script to update an installed version of Rustdesk
 
-	wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/rustdesk_update_script -0 ->> rustdesk_update_script
+	wget https://raw.githubusercontent.com/tenorediforza/bash_scripts/refs/heads/main/rustdesk_update_script -O ->> rustdesk_update_script
 
 #Add respective lines to .bash_aliases
 	wget https://raw.githubusercontent.com/tenorediforza/configurations/refs/heads/main/bash_aliases -O ->> .bash_aliases
